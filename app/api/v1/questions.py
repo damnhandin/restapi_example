@@ -4,17 +4,22 @@ from fastapi import APIRouter, Depends, HTTPException, status
 
 from app.api.v1.deps import get_db
 from app.db.database import Database
-from app.schemas.question import QuestionCreate, QuestionRead, QuestionsRead
+from app.schemas.question import (
+    QuestionCreate,
+    QuestionRead,
+    QuestionsRead,
+    QuestionWithAnswersRead,
+)
 
 logger = logging.getLogger(__name__)
 
 router = APIRouter(prefix="/questions", tags=["questions"])
 
 
-@router.get("/", response_model=QuestionsRead, status_code=status.HTTP_200_OK)
+@router.get("", response_model=QuestionsRead, status_code=status.HTTP_200_OK)
 async def get_questions_endpoint(db: Database = Depends(get_db)):
     try:
-        return QuestionsRead.model_validate(await db.list_questions())
+        return {"questions": await db.list_questions()}
     except Exception:
         logger.exception("Database error", exc_info=True)
         raise HTTPException(
@@ -23,13 +28,13 @@ async def get_questions_endpoint(db: Database = Depends(get_db)):
         ) from None
 
 
-@router.post("/", response_model=QuestionRead, status_code=status.HTTP_201_CREATED)
+@router.post("", response_model=QuestionRead, status_code=status.HTTP_201_CREATED)
 async def create_question_endpoint(
     payload: QuestionCreate,
     db: Database = Depends(get_db),
 ):
     try:
-        return QuestionRead.model_validate(await db.create_question(data=payload))
+        return await db.create_question(data=payload)
     except Exception as e:
         logger.exception(f"Unexpected error {e}", exc_info=True)
         raise HTTPException(
@@ -39,21 +44,24 @@ async def create_question_endpoint(
 
 
 @router.get(
-    "/{question_id}", response_model=QuestionRead, status_code=status.HTTP_200_OK
+    "/{question_id}",
+    response_model=QuestionWithAnswersRead,
+    status_code=status.HTTP_200_OK,
 )
 async def get_question_with_answers_endpoint(
     question_id: int, db: Database = Depends(get_db)
 ):
     try:
-        return QuestionRead.model_validate(
-            await db.get_question(question_id=question_id)
-        )
+        question = await db.get_question(question_id=question_id)
     except Exception as e:
         logger.exception(f"Unexpected error {e}", exc_info=True)
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail="Internal Server Error",
         ) from None
+    if question is None:
+        raise HTTPException(status_code=404, detail="Question not found")
+    return question
 
 
 @router.delete("/{question_id}", status_code=status.HTTP_204_NO_CONTENT)

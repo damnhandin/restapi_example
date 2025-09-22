@@ -1,7 +1,7 @@
 FROM python:3.12-bullseye
 
 # Устанавливаем рабочую директорию
-WORKDIR /usr/src/app/bot
+WORKDIR /usr/src/app/
 
 # Копируем и устанавливаем зависимости
 COPY requirements.txt .

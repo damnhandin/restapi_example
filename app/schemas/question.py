@@ -4,7 +4,7 @@ from typing import TYPE_CHECKING
 from pydantic import BaseModel, ConfigDict, Field
 
 if TYPE_CHECKING:
-    from app.schemas.answer import AnswerRead
+    from app.schemas import AnswerRead
 
 
 class QuestionBase(BaseModel):
@@ -18,9 +18,12 @@ class QuestionCreate(QuestionBase):
 class QuestionRead(QuestionBase):
     id: int
     created_at: datetime
-    answers: list["AnswerRead"] | None = Field(default_factory=list)
 
     model_config = ConfigDict(from_attributes=True)
+
+
+class QuestionWithAnswersRead(QuestionRead):
+    answers: list["AnswerRead"] = Field(default_factory=list)
 
 
 class QuestionsRead(BaseModel):

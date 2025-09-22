@@ -18,7 +18,8 @@ async def lifespan(app: FastAPI):
     logger.info("🚀 Запускаем Q&A API...")
     # startup
     config: Config = load_config(path=".env")
-    db = Database(config, echo=False)
+    db = Database(db_config=config.db, echo=False)
+    await db.create_tables()
     app.state.db = db
     try:
         yield
