@@ -73,6 +73,10 @@ async def delete_answer_endpoint(
         deleted = await db.delete_answer_by_id(answer_id=answer_id)
     except Exception as e:
         logger.exception(f"Unexpected error {e}", exc_info=True)
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Internal Server Error",
+        ) from None
     if not deleted:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND, detail="Answer not found"
