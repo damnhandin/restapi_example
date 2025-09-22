@@ -25,7 +25,9 @@ async def create_answer_endpoint(
     db: "Database" = Depends(get_db),
 ):
     try:
-        await db.create_answer_for_question(question_id=question_id, data=payload)
+        return AnswerRead.model_validate(
+            await db.create_answer_for_question(question_id=question_id, data=payload)
+        )
     except IntegrityError:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND, detail="Question not found"
@@ -36,7 +38,6 @@ async def create_answer_endpoint(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail="Internal Server Error",
         ) from None
-    return {"success": True}
 
 
 @router.get("/answers/{answer_id}", response_model=AnswerRead)
@@ -46,17 +47,17 @@ async def get_answer_endpoint(
 ):
     try:
         answer = await db.get_answer_by_id(answer_id=answer_id)
+        if answer is None:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND, detail="Answer not found"
+            ) from None
+        return AnswerRead.model_validate(answer)
     except Exception as e:
         logger.exception(f"Unexpected error {e}", exc_info=True)
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail="Internal Server Error",
         ) from None
-    if answer is None:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND, detail="Answer not found"
-        ) from None
-    return answer
 
 
 @router.delete(
