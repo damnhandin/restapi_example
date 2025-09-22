@@ -8,16 +8,13 @@
 <p align="center">
   <!-- Badges (при желании замените ссылки на реальные) -->
   <a href="https://github.com/damnhandin">
-    <img alt="CI" src="https://img.shields.io/github/actions/workflow/status/USER/REPO/ci.yml?branch=main">
+    <img alt="CI" src="https://img.shields.io/github/actions/workflow/status/damnhandin/restapi_example/ci.yml?branch=main">
   </a>
   <a href="https://github.com/USER/REPO/releases">
-    <img alt="Release" src="https://img.shields.io/github/v/release/USER/REPO">
+    <img alt="Release" src="https://img.shields.io/github/v/release/damnhandin/restapi_example">
   </a>
   <a href="#-поддерживаемые-платформы">
     <img alt="Platforms" src="https://img.shields.io/badge/platforms-linux%20%7C%20macos%20%7C%20windows-blue">
-  </a>
-  <a href="#-лицензия">
-    <img alt="License" src="https://img.shields.io/badge/license-MIT-green">
   </a>
 </p>
 
