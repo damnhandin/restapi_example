@@ -18,7 +18,7 @@ line-ending = "auto"
 [tool.ruff.lint]
 # правила теперь лежат в блоке lint.*
 select = ["E", "F", "I", "B", "UP", "C4"]
-ignore = ["E203", "E501"]
+ignore = ["E203", "E501", "B008"]
 
 [tool.ruff.lint.isort]
 known-first-party = ["app"]
