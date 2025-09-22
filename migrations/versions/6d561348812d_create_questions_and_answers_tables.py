@@ -1,15 +1,15 @@
 """create questions and answers tables
 
-Revision ID: 5579c91725da
+Revision ID: 6d561348812d
 Revises:
-Create Date: 2025-09-22 20:45:36.860877
+Create Date: 2025-09-22 20:51:25.199129
 
 """
 
 from collections.abc import Sequence
 
 # revision identifiers, used by Alembic.
-revision: str = "5579c91725da"
+revision: str = "6d561348812d"
 down_revision: str | Sequence[str] | None = None
 branch_labels: str | Sequence[str] | None = None
 depends_on: str | Sequence[str] | None = None
