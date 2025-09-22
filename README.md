@@ -6,13 +6,15 @@
 </p>
 
 <p align="center">
-  <!-- Badges (при желании замените ссылки на реальные) -->
-  <a href="https://github.com/damnhandin">
+  <!-- CI статус -->
+  <a href="https://github.com/damnhandin/restapi_example/actions">
     <img alt="CI" src="https://img.shields.io/github/actions/workflow/status/damnhandin/restapi_example/ci.yml?branch=main">
   </a>
-  <a href="https://github.com/USER/REPO/releases">
+  <!-- Релизы -->
+  <a href="https://github.com/damnhandin/restapi_example/releases">
     <img alt="Release" src="https://img.shields.io/github/v/release/damnhandin/restapi_example">
   </a>
+  <!-- Платформы -->
   <a href="#-поддерживаемые-платформы">
     <img alt="Platforms" src="https://img.shields.io/badge/platforms-linux%20%7C%20macos%20%7C%20windows-blue">
   </a>
