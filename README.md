@@ -16,10 +16,10 @@
 
 <h2 id="-содержание">📑 Содержание</h2>
 <ul>
-  <li><a href="#-быстрый-старт-docker" style="text-decoration: none;">▶️ Быстрый старт (Docker)</a></li>
-  <li><a href="#-локальная-разработка--тесты" style="text-decoration: none;">🧪 Тесты (pytest)</a></li>
-  <li><a href="#-структура-проекта" style="text-decoration: none;">🗂️ Структура проекта</a></li>
-  <li><a href="#-миграции-alembic" style="text-decoration: none;">🗄️ Миграции (Alembic)</a></li>
+  <li>▶️ <a href="#-быстрый-старт-docker">Быстрый старт (Docker)</a></li>
+  <li>🧪 <a href="#-локальная-разработка--тесты">Тесты (pytest)</a></li>
+  <li>🗂️ <a href="#-структура-проекта">Структура проекта</a></li>
+  <li>🗄️ <a href="#-миграции-alembic">Миграции (Alembic)</a></li>
 </ul>
 
 <hr/>
