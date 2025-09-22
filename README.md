@@ -1,4 +1,3 @@
-<!-- README.md -->
 <h1 align="center">🚀 RestAPI Example</h1>
 <p align="center">
   <strong>Q&A FastAPI backend service</strong><br/>
@@ -25,7 +24,12 @@
 <hr/>
 
 <h2 id="-быстрый-старт-docker">▶️ Быстрый старт (Docker)</h2>
-<p>В корневой папке репозитория выполните:</p>
+<p>1) Переименуйте файл <code>.env.dist</code> в <code>.env</code> и при необходимости заполните его своими значениями:</p>
+
+<pre><code class="language-bash">cp .env.dist .env
+</code></pre>
+
+<p>2) В корневой папке репозитория выполните:</p>
 
 <pre><code class="language-bash">docker compose up
 </code></pre>
@@ -57,14 +61,20 @@
 </details>
 
 <details open>
-  <summary><strong>2) Обновите pip и установите зависимости</strong> 📚</summary>
+  <summary><strong>2) Скопируйте <code>.env.dist</code> и при необходимости заполните</strong> ⚙️</summary>
+  <pre><code class="language-bash">cp .env.dist .env
+</code></pre>
+</details>
+
+<details open>
+  <summary><strong>3) Обновите pip и установите зависимости</strong> 📚</summary>
   <pre><code class="language-bash">pip install --upgrade pip
 pip install -r requirements.txt
 </code></pre>
 </details>
 
 <details open>
-  <summary><strong>3) Запустите тесты</strong> ✅</summary>
+  <summary><strong>4) Запустите тесты</strong> ✅</summary>
   <pre><code class="language-bash">pytest
 </code></pre>
   <p>🗂️ Все тесты находятся в папке <code>tests/</code>.</p>
@@ -79,6 +89,7 @@ pip install -r requirements.txt
 ├── tests/              # Тесты (pytest)
 ├── requirements.txt    # Зависимости Python
 ├── docker-compose.yml  # Конфигурация Docker
+├── .env.dist           # Пример файла окружения
 ├── app/                # Исходный код приложения
 └── README.md
 </code></pre>
@@ -87,4 +98,3 @@ pip install -r requirements.txt
 
 <h2 id="-миграции-alembic">🗄️ Миграции (Alembic)</h2>
 <p>Все миграции находятся в папке <code>migrations/</code>.</p>
-
