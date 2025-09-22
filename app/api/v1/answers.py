@@ -1,7 +1,7 @@
 import logging
 from typing import TYPE_CHECKING
 
-from fastapi import APIRouter, Depends, HTTPException, Path, status
+from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.exc import IntegrityError
 
 from app.api.v1.deps import get_db
@@ -21,7 +21,7 @@ router = APIRouter(tags=["answers"])
 )
 async def create_answer_endpoint(
     payload: AnswerCreate,
-    question_id: int = Path(..., ge=1),
+    question_id: int,
     db: "Database" = Depends(get_db),
 ):
     try:
@@ -42,7 +42,7 @@ async def create_answer_endpoint(
 
 @router.get("/answers/{answer_id}", response_model=AnswerRead)
 async def get_answer_endpoint(
-    answer_id: int = Path(..., ge=1),
+    answer_id: int,
     db: "Database" = Depends(get_db),
 ):
     try:
@@ -65,7 +65,7 @@ async def get_answer_endpoint(
     status_code=status.HTTP_204_NO_CONTENT,
 )
 async def delete_answer_endpoint(
-    answer_id: int = Path(..., ge=1),
+    answer_id: int,
     db: "Database" = Depends(get_db),
 ):
     try:
