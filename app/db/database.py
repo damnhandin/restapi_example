@@ -51,10 +51,13 @@ class Database:
                 stmt = (
                     insert(AnswerOrm)
                     .values(question_id=question_id, user_id=data.user_id, text=data.text)
-                    .returning(AnswerOrm)
+                    .returning(AnswerOrm.user_id,
+                               AnswerOrm.text,
+                               AnswerOrm.id,
+                               AnswerOrm.question_id,
+                               AnswerOrm.created_at)
                 )
-                result = await session.execute(stmt)
-                answer = result.scalar_one()
+                answer = (await session.execute(stmt)).mappings().one()
             return answer
 
     async def get_answer_by_id(self, answer_id: int) -> AnswerOrm | None:
@@ -66,12 +69,11 @@ class Database:
                 .where(AnswerOrm.id == answer_id)
             )
             res = await session.execute(stmt)
-            return res.scalar_one_or_none()
+        return res.scalar_one_or_none()
 
     async def delete_answer_by_id(self, answer_id: int) -> bool:
         async with self.session_maker() as session:  # type: AsyncSession
             async with session.begin():
-                # можно через delete() + returning, чтобы понять, было ли удаление
                 stmt = delete(AnswerOrm).where(AnswerOrm.id == answer_id)
                 result = await session.execute(stmt)
                 deleted = result.rowcount or 0
@@ -94,14 +96,12 @@ class Database:
             async with session.begin():
                 stmt = (
                     insert(QuestionOrm)
-                    .values(text=data.text,
-                            created_at=data.created_at,
-                            answers=data.answers)
-                    .returning(QuestionOrm)
+                    .values(text=data.text)
+                    .returning(QuestionOrm.id, QuestionOrm.text, QuestionOrm.created_at)
                 )
-                result = await session.execute(stmt)
-                question = result.scalar_one()
-            return question
+
+                question = (await session.execute(stmt)).mappings().one()
+                return question
 
     async def get_question(self, question_id: int) -> QuestionOrm | None:
         async with self.session_maker() as session:  # type: AsyncSession

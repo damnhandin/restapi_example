@@ -81,7 +81,6 @@ def load_config(env: Env | None = None, path: str | None = None) -> Config:
     if not env:
         env = Env()
         env.read_env(path)
-
     return Config(
         db=DbConfig.from_env(env),
         misc=Miscellaneous.from_env(env),

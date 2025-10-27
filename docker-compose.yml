@@ -16,6 +16,19 @@ services:
       timeout: 5s
       retries: 6
 
+  migrate:
+    build: .
+    env_file: .env
+    environment:
+      RUN_MIGRATIONS: True
+      DB_HOST: postgres
+    depends_on:
+      postgres:
+        condition: service_healthy
+    # ВАЖНО: запускаем только миграции и выходим
+    command: bash -c "if [ \"$RUN_MIGRATIONS\" = 'True' ]; then alembic upgrade head; else echo 'Skipping migrations...'; fi"
+    restart: "no"
+
   qa_service:
     build: .
     command: python -m app.main

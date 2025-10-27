@@ -19,7 +19,7 @@ async def lifespan(app: FastAPI):
     # startup
     config: Config = load_config(path=".env")
     db = Database(db_config=config.db, echo=False)
-    await db.create_tables()
+
     app.state.db = db
     try:
         yield
