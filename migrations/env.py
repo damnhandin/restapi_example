@@ -12,7 +12,7 @@ from app.db.models import (
     QuestionOrm,  # noqa
 )
 
-os.environ.setdefault("DB_PORT", "15432")
+os.environ.setdefault("DB_PORT", "5432")
 
 env = Env()
 env.read_env(".env")
